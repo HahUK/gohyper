@@ -6,7 +6,6 @@ import (
 	"image/color"
 	"image/draw"
 	"image/png"
-	"log"
 	"sync"
 )
 
@@ -32,7 +31,6 @@ func getColourToUse(batteryLevel uint8, IsUSBCharging bool, ISBatteryLow bool) c
 
 func generateMaskImage(srcIcon []byte) (image.Image, error) {
 	tmpImage, _, tmpError := image.Decode(bytes.NewReader(srcIcon))
-	log.Println("Generated mask, error", tmpError)
 	return tmpImage, tmpError
 }
 
