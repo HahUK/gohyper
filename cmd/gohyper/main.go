@@ -27,10 +27,10 @@ var LastMuteWasOn bool = false
 var MenuItemBatteryLevel *systray.MenuItem
 var MenuItemMuted *systray.MenuItem
 
-//go:embed assets/closedmic-white.png
+//go:embed assets/closedmic-white-nospace.png
 var IconDataMuted []byte
 
-//go:embed assets/openmic-white.png
+//go:embed assets/openmic-white-nospace.png
 var IconDataOpen []byte
 
 //go:embed assets/off-white.png
@@ -87,6 +87,19 @@ func updateSysTray() {
 		if LastMuteWasOn {
 			micStatus = "muted"
 			micIcon = IconDataMuted
+		}
+
+		var IsBatteryLow = LastBatteryLevel < LOW_BATTERY_THRESHOLD
+
+		generatedIcon, err := getBatteryLevelIcon(micIcon,
+			LastBatteryLevel,
+			LastWasUSBCharging,
+			IsBatteryLow)
+
+		if err != nil {
+			log.Println("Error creating battery level icon", err)
+		} else {
+			micIcon = generatedIcon
 		}
 
 		var batteryStatus = ""
