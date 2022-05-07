@@ -151,15 +151,12 @@ func main() {
 	flag.BoolVar(&NOTIFICATIONS_ENABLED, "notifications", NOTIFICATIONS_ENABLED, "Enable low battery notifications")
 	flag.DurationVar(&NOTIFICATIONS_INTERVAL, "interval", NOTIFICATIONS_INTERVAL, "Interval between battery checks")
 	flag.Func("threshold", "Percentage low battery threshold (default 40%)", func(flagValue string) error {
-		tempThreshold, err := strconv.ParseInt(flagValue, 10, 64)
+		tempThreshold, err := strconv.ParseUint(flagValue, 10, 8)
 		if err != nil {
 			return err
 		}
 		if tempThreshold > 100 {
 			return errors.New("battery percentage cannot be more than 100")
-		}
-		if tempThreshold < 0 {
-			return errors.New("battery percentage must be greater than 0")
 		}
 		LOW_BATTERY_THRESHOLD = uint8(tempThreshold)
 		return nil
