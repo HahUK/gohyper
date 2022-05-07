@@ -18,8 +18,8 @@ jobs:
 
     - name: Install Prereqs
       run: | 
-        apt-get update
-        apt-get install -y libayatana-appindicator3-dev libhidapi-hidraw0 libhidapi-dev
+        sudo apt-get update
+        sudo apt-get install -y libayatana-appindicator3-dev libhidapi-hidraw0 libhidapi-dev
 
     - name: Build
       run: go build -v ./...
