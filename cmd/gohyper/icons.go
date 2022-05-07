@@ -17,12 +17,12 @@ var lowColour color.RGBA = color.RGBA{255, 0, 0, 255}
 var normalColour color.RGBA = color.RGBA{0, 255, 0, 255}
 var remainingColour color.RGBA = color.RGBA{255, 255, 255, 255}
 
-func getColourToUse(batteryLevel uint8, IsUSBCharging bool, ISBatteryLow bool) color.RGBA {
+func getColourToUse(batteryLevel uint8, IsUSBCharging bool, IsBatteryLow bool) color.RGBA {
 	if IsUSBCharging {
 		return chargingColour
 	}
 
-	if ISBatteryLow {
+	if IsBatteryLow {
 		return lowColour
 	}
 
@@ -87,7 +87,7 @@ func generateBatteryLevelIcon(srcIcon []byte, batteryLevel uint8, IsUSBCharging 
 	return tmpBuffer.Bytes(), err
 }
 
-func getBatteryLevelIcon(srcIcon []byte, batteryLevel uint8, IsUSBCharging bool, ISBatteryLow bool) ([]byte, error) {
+func GetBatteryLevelIcon(srcIcon []byte, batteryLevel uint8, IsUSBCharging bool, ISBatteryLow bool) ([]byte, error) {
 	if batteryLevel > 100 {
 		batteryLevel = 100
 	}

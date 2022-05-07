@@ -91,7 +91,7 @@ func updateSysTray() {
 
 		var IsBatteryLow = LastBatteryLevel < LOW_BATTERY_THRESHOLD
 
-		generatedIcon, err := getBatteryLevelIcon(micIcon,
+		generatedIcon, err := GetBatteryLevelIcon(micIcon,
 			LastBatteryLevel,
 			LastWasUSBCharging,
 			IsBatteryLow)
