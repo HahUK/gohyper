@@ -27,10 +27,10 @@ var LastMuteWasOn bool = false
 var MenuItemBatteryLevel *systray.MenuItem
 var MenuItemMuted *systray.MenuItem
 
-//go:embed assets/closedmic-white.png
+//go:embed assets/closedmic-white-nospace.png
 var IconDataMuted []byte
 
-//go:embed assets/openmic-white.png
+//go:embed assets/openmic-white-nospace.png
 var IconDataOpen []byte
 
 //go:embed assets/off-white.png
@@ -89,6 +89,19 @@ func updateSysTray() {
 			micIcon = IconDataMuted
 		}
 
+		var IsBatteryLow = LastBatteryLevel < LOW_BATTERY_THRESHOLD
+
+		generatedIcon, err := GetBatteryLevelIcon(micIcon,
+			LastBatteryLevel,
+			LastWasUSBCharging,
+			IsBatteryLow)
+
+		if err != nil {
+			log.Println("Error creating battery level icon", err)
+		} else {
+			micIcon = generatedIcon
+		}
+
 		var batteryStatus = ""
 		if LastWasUSBCharging {
 			batteryStatus = " (Charging)"
@@ -138,15 +151,12 @@ func main() {
 	flag.BoolVar(&NOTIFICATIONS_ENABLED, "notifications", NOTIFICATIONS_ENABLED, "Enable low battery notifications")
 	flag.DurationVar(&NOTIFICATIONS_INTERVAL, "interval", NOTIFICATIONS_INTERVAL, "Interval between battery checks")
 	flag.Func("threshold", "Percentage low battery threshold (default 40%)", func(flagValue string) error {
-		tempThreshold, err := strconv.ParseInt(flagValue, 10, 64)
+		tempThreshold, err := strconv.ParseUint(flagValue, 10, 8)
 		if err != nil {
 			return err
 		}
 		if tempThreshold > 100 {
 			return errors.New("battery percentage cannot be more than 100")
-		}
-		if tempThreshold < 0 {
-			return errors.New("battery percentage must be greater than 0")
 		}
 		LOW_BATTERY_THRESHOLD = uint8(tempThreshold)
 		return nil
