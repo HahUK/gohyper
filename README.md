@@ -9,6 +9,7 @@ It features:
   * Power off indicator
   * When powered on, microphone mute indicator
   * Menu item showing battery level, microphone and USB charging status
+  * Changes colour to show charging status and battery level
 * Notifications configurable through command line arguments
 
 ## Usage
