@@ -22,7 +22,5 @@ require (
 require (
 	github.com/gen2brain/beeep v0.0.0-20220402123239-6a3042f4b71a
 	github.com/getlantern/systray v1.2.1
-	github.com/mattn/go-isatty v0.0.10 // indirect
-	github.com/mattn/go-tty v0.0.4 // indirect
-	golang.org/x/sys v0.0.0-20220319134239-a9b59b0215f8 // indirect
+	golang.org/x/sys v0.1.0 // indirect
 )
